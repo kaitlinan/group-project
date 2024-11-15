@@ -1,0 +1,19 @@
+highs = []
+
+for i in range(82):
+    if i % 2 == 0:
+        highs.append(height[i])
+
+params, params_cov = optimize.curve_fit(f_line, day, highs, sigma = [0.25] * len(data), p0 = [2, 0.5, -3, 4])
+
+u_fit = params[0]
+v_fit = params[1]
+w_fit = params[2]
+z_fit = params[3]
+
+high_fit = f_line(np.array(day), u_fit, v_fit, w_fit, z_fit)
+
+plt.plot(day, y_fit, label = 'Fitted Curve', color = 'red')
+plt.plot(day, high_fit, label = 'High Tide Fit', color = 'green')
+plt.legend()
+plt.show()
